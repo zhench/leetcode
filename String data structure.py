@@ -36,20 +36,22 @@ class Solution(object):
         :type t: str
         :rtype: bool
         """
-        if len(s) != len(t):
+        if len(s)!=len(t):
             return False
-        i = len(t) - 1
-        while i >= 0:
-            tchar = t[i]
-            if tchar in s:
-                s=s.replace(tchar, '', 1)
-                i -= 1
-            else:
+        for i in range(ord('a'),ord('z')+1):
+            if s.count(chr(i))!=t.count(chr(i)):
                 return False
-        if len(s) == 0:
+        return True
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        s=s.lower()
+        s=[i for i in s if i.isalnum()]
+        if s==s[::-1]:
             return True
         return False
-
 
 if __name__ == "__main__":
     sol = Solution()
@@ -60,6 +62,8 @@ if __name__ == "__main__":
     # print(m)
     s = 'abc def ghi'
     # print(sol.reverseWords(s))
-    s = "anagram"
-    m = "nagaram"
+    s ="nl"
+    m = "cx"
     print(sol.isAnagram(s,m))
+    s="race a car"
+    print(sol.isPalindrome(s))
