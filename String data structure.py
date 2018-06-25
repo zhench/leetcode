@@ -36,22 +36,53 @@ class Solution(object):
         :type t: str
         :rtype: bool
         """
-        if len(s)!=len(t):
+        if len(s) != len(t):
             return False
-        for i in range(ord('a'),ord('z')+1):
-            if s.count(chr(i))!=t.count(chr(i)):
+        for i in range(ord('a'), ord('z') + 1):
+            if s.count(chr(i)) != t.count(chr(i)):
                 return False
         return True
+
     def isPalindrome(self, s):
         """
         :type s: str
         :rtype: bool
         """
-        s=s.lower()
-        s=[i for i in s if i.isalnum()]
-        if s==s[::-1]:
+        s = s.lower()
+        s = [i for i in s if i.isalnum()]
+        if s == s[::-1]:
             return True
         return False
+
+    def myAtoi(self, str):
+        """
+        :type str: str
+        :rtype: int
+        """
+        r = ''
+        str = str.lstrip()
+        if len(str)==0:
+            return 0
+        if str[0] not in "-+0987654321":
+            return 0
+        if str[0] in '-+':
+            r+=str[0]
+        start=len(r)
+        for i in str[start:]:
+            if i in '1234567890':
+                r += i
+            else:
+                break
+        try:
+            r = int(r)
+            if r < -2**31:
+                return -2**31
+            elif r > 2**31 - 1:
+                return 2**31 - 1
+            return r
+        except ValueError:
+            return 0
+
 
 if __name__ == "__main__":
     sol = Solution()
@@ -62,8 +93,10 @@ if __name__ == "__main__":
     # print(m)
     s = 'abc def ghi'
     # print(sol.reverseWords(s))
-    s ="nl"
+    s = "nl"
     m = "cx"
-    print(sol.isAnagram(s,m))
-    s="race a car"
-    print(sol.isPalindrome(s))
+    print(sol.isAnagram(s, m))
+    s = "race a car"
+    # print(sol.isPalindrome(s))
+    s = "42"
+    print(sol.myAtoi(s))
