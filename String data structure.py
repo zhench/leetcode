@@ -82,6 +82,56 @@ class Solution(object):
             return r
         except ValueError:
             return 0
+    def countAndSay(self, n):  
+        """ 
+        :type n: int 
+        :rtype: str 
+        """  
+        if n==1:#类似于斐波拉契数，后面的数跟前面的数有关  
+            return '1'  
+        if n==2:  
+            return '11'  
+        pre='11'  
+        for i in range(3,n+1):  
+            res=''#结果，每次报数都要初始化  
+            cnt=1#计数  
+            length=len(pre)  
+            for j in range(1,length):  
+                if pre[j-1]==pre[j]:#相等则加一  
+                    cnt+=1  
+                else:  
+                    res+=str(cnt)+pre[j-1]  
+                    cnt=1#重置为1  
+            res+=str(cnt)+pre[j]  
+            pre=res#保存上一次的结果  
+        return res
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if len(strs)==0:
+            return ''
+        res=""
+        flag=True
+        first_str=strs[0]
+        length=len(strs[0])
+        for substr in strs:
+            if len(substr)<length:
+                length=len(substr)
+                first_str=substr
+        
+        for i in range(length):
+            for substr in strs:
+                if first_str[i] == substr[i]:
+                    flag=True
+                else:
+                    flag=False
+                    return res
+            if flag:
+                res+=first_str[i]
+        return res
+                    
 
 
 if __name__ == "__main__":
@@ -100,3 +150,5 @@ if __name__ == "__main__":
     # print(sol.isPalindrome(s))
     s = "42"
     print(sol.myAtoi(s))
+    print(sol.countAndSay(5))
+    print(sol.longestCommonPrefix(['a']))
